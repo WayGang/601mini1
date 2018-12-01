@@ -8,10 +8,10 @@ from google.cloud.vision import types
 from PIL import Image, ImageDraw, ImageFont
 import time
 
-consumer_key = 'ARyNwUJmdC5KpxsopsoQLrfV0'
-consumer_secret = 'B60tBd2wbH977UQaEc9KGNaiL0khyqmLmP7Fh1rjA4wAVVGmt7'
-access_token = '1040111094516404224-kXJHXfYrMMbTlC31UEe8gvkbirxo93'
-access_secret = 'M0zz1pFuFEuLjGttdKuQIMEqVKaKOmMYgNKklQGAAxgtr'
+consumer_key = ''
+consumer_secret = ''
+access_token = ''
+access_secret = ''
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"]="/Users/gangwei/Downloads/MyProject-08c6d528bd01.json"
 
 
@@ -41,6 +41,8 @@ def conver_mp4():
 
 def descript(images):
     client = vision.ImageAnnotatorClient()
+    every = {}
+    all = []
     for image in images:
         with io.open(image, 'rb') as images:
             image_content = images.read()
@@ -54,8 +56,14 @@ def descript(images):
 
         thelabel = ''
         for label in labels:
-            thelabel = thelabel + label.description + '\n'
-            # print(thelabel)
+            #thelabel = thelabel + label.description + '\n'
+            #print(thelabel)
+            all.append(label.description)
+            if label.description in every:
+                every[label.description] += 1
+            else:
+                every[label.description] = 1
+
         font = ImageFont.truetype('/library/Fonts/Trattatello.ttf',32)
         draw = ImageDraw.Draw(imagelabel)
         draw.text(
@@ -65,19 +73,25 @@ def descript(images):
             font=font
         )
         imagelabel.save(image)
+    most_popular_disc = max(every, key=every.get)
+    print(most_popular_disc)
+    print(all)
+    return most_popular_disc,all
 
 def go(a):
-
     l, t = get_images(a)
-    descript(l)
+    m, a = descript(l)
     conver_mp4()
+    return m,a
 
 def t(a):
     l, t = get_images(a)
     return t
+
 
 def time_extraction(file_path):
 
     t = os.path.getctime(file_path)
     timeStruct = time.localtime(t)
     return time.strftime('%Y-%m-%d %H:%M:%S', timeStruct)
+
