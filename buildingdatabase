@@ -1,0 +1,30 @@
+MySQL:
+the tables are:
+
+CREATE TABLE `label` (
+  `No.` int(11) NOT NULL AUTO_INCREMENT,
+  `twitter_user` varchar(45) DEFAULT NULL,
+  `label` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`No.`)
+) ENGINE=InnoDB AUTO_INCREMENT=171 DEFAULT CHARSET=utf8
+
+CREATE TABLE `transaction` (
+  `No.` int(11) NOT NULL AUTO_INCREMENT,
+  `user` varchar(30) NOT NULL,
+  `twitter_user` varchar(30) DEFAULT NULL,
+  `time` datetime DEFAULT NULL,
+  PRIMARY KEY (`No.`,`user`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8
+
+CREATE TABLE `twitter` (
+  `twitter_user` varchar(30) NOT NULL,
+  `image_number` int(11) DEFAULT NULL,
+  `most_popular_disc` varchar(30) DEFAULT NULL,
+  PRIMARY KEY (`twitter_user`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+CREATE TABLE `user` (
+  `No.` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(30) NOT NULL,
+  PRIMARY KEY (`No.`,`name`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8
