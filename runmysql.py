@@ -5,12 +5,12 @@ file_path = '/Users/gangwei/Desktop/twitterproject/miniproject1.mp4'
 name = input('Who are you:')
 twitter_user = input('who you want to find:')
 
-go(twitter_user)
+most_popular_disc, labels = go(twitter_user)
 
 image_number = t(twitter_user)
 print('The number of images is:',image_number)
 time = time_extraction(file_path)
-most_popular_disc = 'guesswhat'
+
 
 def user():
 
@@ -39,6 +39,19 @@ def transaction():
         db.rollback()
         db.close()
 
+def label():
+    for i in range(len(labels)):
+        db = pymysql.connect("localhost", "root", "WeiGang0502", "twitterdata")
+        cursor = db.cursor()
+        sql = "INSERT INTO label(twitter_user,label) VALUES(\'%s\',\'%s\')" % (
+            twitter_user, labels[i])
+        try:
+            cursor.execute(sql)
+            db.commit()
+        except:
+            db.rollback()
+            db.close()
+
 def twitter():
     db = pymysql.connect("localhost", "root", "WeiGang0502", "twitterdata")
     cursor = db.cursor()
@@ -52,6 +65,9 @@ def twitter():
         db.rollback()
         db.close()
 
+
+
 user()
 transaction()
+label()
 twitter()
