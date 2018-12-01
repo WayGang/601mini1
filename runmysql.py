@@ -1,7 +1,7 @@
 from twitterAPI import *
 import pymysql
 
-file_path = '/Users/gangwei/Desktop/twitterproject/miniproject1.mp4'
+file_path = input('Store path:') #/Users/gangwei/Desktop/twitterproject/miniproject1.mp4
 name = input('Who are you:')
 twitter_user = input('who you want to find:')
 
